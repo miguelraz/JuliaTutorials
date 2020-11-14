@@ -1,0 +1,135 @@
+### A Pluto.jl notebook ###
+# v0.10.0
+
+using Markdown
+
+# ╔═╡ ad01571d-3bc3-4d11-851d-5a00e477d6df
+md"""
+# Condicionales
+
+En Julia, la sintaxis
+
+```julia
+if *condición 1*
+    *opción 1*
+elseif *condición 2*
+    *opción 2*
+else
+    *opción 3*
+end
+```
+
+Nos permite eventualmente evaluar una de nuestras opciones.
+<br><br>
+Por ejemplo, tal vez queremos implementar la prueba de FizzBuzz: Dado un número N, imprime "Fizz" si N es divisible entre 3, "Buzz" si N es divisible entre 5, y "FizzBuzz" si N es divisible entre ambos 3 y 5. En cualquier otro caso, imprimo el número mismo.
+"""
+
+# ╔═╡ 7dc5bb25-f3f3-4fdf-91f7-c6c5ce8c3934
+N = 
+
+# ╔═╡ ec5720b1-de5c-4eba-aa37-9c2248eb9b01
+if (N % 3 == 0) & (N % 5 == 0)
+    println("FizzBuzz")
+elseif N % 3 == 0
+    println("Fizz")
+elseif N % 5 == 0
+    println("Buzz")
+else
+    println(N)
+end
+
+# ╔═╡ c0e38468-a793-4946-ab22-28b302c50c42
+md"""
+Ahora digamos que queremos regresar el mayor número de ambos. Escoge tus propios x y y
+"""
+
+# ╔═╡ 7f187a5d-561c-4010-9c8e-82fd27de0fed
+x = 
+y = 
+
+# ╔═╡ f3b473cf-fdbb-43ad-b5b6-54aa039f1ea0
+if x > y
+    x
+else
+    y
+end
+
+# ╔═╡ a1e393f1-fd92-43f0-b8f5-4f5a760fd690
+md"""
+Para el último bloque, podemos usar el operador ternario, con la sintaxis
+
+```julia
+a ? b : c
+```
+
+que equivale a
+
+```julia
+if a
+    b
+else
+    c
+end
+```
+"""
+
+# ╔═╡ 9f672275-efe8-4474-b8a2-34502e3301e7
+(x > y) ? x : y
+
+# ╔═╡ 903a6dea-57ef-4141-9a93-830cb0f4cc2f
+md"""
+Un truco relacionado es la evaluación de corto-circuito 
+
+```julia
+a && b
+```
+"""
+
+# ╔═╡ 4d2656be-7402-413e-b178-145eb7d73209
+(x > y) && println(x)
+
+# ╔═╡ 768514c7-a170-4a9a-8c09-e614d86825d6
+(x < y) && println(y)
+
+# ╔═╡ ab52e37a-d650-45a9-a6a7-857d047533df
+md"""
+Cuando escribimos `a && b`, `b` se ejecuta sólo si `a` se evalúa a `true`.
+<br>
+Si `a` se evalúa a `false`, la expresión `a && b` regresa `false`
+"""
+
+# ╔═╡ e4a7bf0b-8ce3-4848-a657-382c71a196f4
+md"""
+### Ejercicios
+
+5.1 Reescribe FizzBuzz sin usar `elseif`.
+"""
+
+# ╔═╡ 9555b539-88b9-434d-b60b-9593dfb76571
+
+
+# ╔═╡ 27737899-7776-438b-b616-ee7bf2ed901d
+md"""
+5.2 Reescribe FizzBuzz usando el operador ternario.
+"""
+
+# ╔═╡ 0699b9c0-88f3-4bcd-a16c-cc1313a68a96
+
+
+# ╔═╡ Cell order:
+# ╟─ad01571d-3bc3-4d11-851d-5a00e477d6df
+# ╠═7dc5bb25-f3f3-4fdf-91f7-c6c5ce8c3934
+# ╠═ec5720b1-de5c-4eba-aa37-9c2248eb9b01
+# ╟─c0e38468-a793-4946-ab22-28b302c50c42
+# ╠═7f187a5d-561c-4010-9c8e-82fd27de0fed
+# ╠═f3b473cf-fdbb-43ad-b5b6-54aa039f1ea0
+# ╟─a1e393f1-fd92-43f0-b8f5-4f5a760fd690
+# ╠═9f672275-efe8-4474-b8a2-34502e3301e7
+# ╟─903a6dea-57ef-4141-9a93-830cb0f4cc2f
+# ╠═4d2656be-7402-413e-b178-145eb7d73209
+# ╠═768514c7-a170-4a9a-8c09-e614d86825d6
+# ╟─ab52e37a-d650-45a9-a6a7-857d047533df
+# ╟─e4a7bf0b-8ce3-4848-a657-382c71a196f4
+# ╠═9555b539-88b9-434d-b60b-9593dfb76571
+# ╟─27737899-7776-438b-b616-ee7bf2ed901d
+# ╠═0699b9c0-88f3-4bcd-a16c-cc1313a68a96

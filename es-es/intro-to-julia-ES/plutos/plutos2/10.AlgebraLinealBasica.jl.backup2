@@ -1,0 +1,193 @@
+### A Pluto.jl notebook ###
+# v0.10.0
+
+using Markdown
+
+# ╔═╡ 3e849bdf-f13a-4ea0-aa54-b6ae89894565
+md"""
+# Álgebra lineal básica en Julia
+Autor: Andreas Noack Jensen (MIT) (http://www.econ.ku.dk/phdstudent/noack/)
+(con edición de Jane Herriman)
+"""
+
+# ╔═╡ a880f5b4-1f0f-4569-a59c-0e87d21cd203
+md"""
+Julia's syntax is very similar to other languages but there are some important differences. Define a matrix of random normal variates
+"""
+
+# ╔═╡ 05eff53f-64c5-4833-9eff-11c7d09b9684
+A = rand(1:4,3,3)
+
+# ╔═╡ 16ca2d04-2f46-4de7-9481-daebf5112c2f
+md"""
+Definir un vector de unos
+"""
+
+# ╔═╡ 018e028c-43ff-4dbe-bc83-e5f0982d6bb6
+x = fill(1.0, (3))
+
+# ╔═╡ 5cc332db-a229-4182-b860-4d276e3042a9
+md"""
+Notamos que $A$ tiene el tipo Array{Int64,2} pero $x$ tiene tipo Array{Int64,1}. Julia define los alias a Vector{Type}=Array{Type,1} y Matrix{Type}=Array{Type,2}.
+
+Muchas de las operaciones básicas son idénticas a otros lenguajes
+
+#### Multiplicación
+"""
+
+# ╔═╡ 383658c8-9d47-4a1e-ba63-66fa6e7f3311
+b = A*x
+
+# ╔═╡ e2cc7ff7-781c-4102-892c-da24291f0388
+md"""
+#### Traspuestas
+Como en otros lenguajes, `A'` es la transpuesta conjugada mientras que `A.'` es sólo la traspuesta
+"""
+
+# ╔═╡ 5c3d3b48-6b7c-4a3b-a9b6-d83f7bc03168
+Asym = A + A'
+
+# ╔═╡ 88f5c70e-b5b1-4cf0-8f50-d1241f0a769b
+md"""
+#### Multiplicación traspuesta
+Julia nos permite escribir esto sin *
+"""
+
+# ╔═╡ 0691212e-d372-43be-b66e-61f842df09eb
+Apd = A'A
+
+# ╔═╡ 1445f674-cfa2-44ab-920f-fe4d85d00c2e
+md"""
+#### Resolviendo sistemas lineales
+El problema $Ax=b$ para $A$ cuadrada se resulve con la función \.
+"""
+
+# ╔═╡ c42fc4ae-bf1d-4eb7-9863-a498fb9116b8
+A\b
+
+# ╔═╡ 462e5a23-f323-4158-bf27-cf36bbc5cec5
+md"""
+#### Sistemas sobredeterminados
+Cuando nuestra matriz es alta (número de renglones mayores al número de columnas), tenemos un sistema lineal sobredeterminado.
+
+
+En este caso \ calcula la de mínimos cuadrados
+"""
+
+# ╔═╡ 8c87b3e1-b737-4179-9955-defcf0905b1b
+Atall = rand(3, 2)
+display(Atall)
+Atall\b
+
+# ╔═╡ 7dea4ca8-27e0-429e-bbf3-dccf2ca67df3
+md"""
+La función \ también sirve ocn problemas deficientes de rango de mínimos cuadrados. En este caso, la solución no es única y Julia regresa el valor con la menor norma.
+
+Para crear un problema de rango deficiente de mínimos cuadrados, vamos a crear una matriz deficiente en rango con columnas linealmente dependientes
+"""
+
+# ╔═╡ 962df670-f9d1-441d-bf86-f4619f29ab4f
+v = randn(3)
+rankdef = [v v]
+
+# ╔═╡ 92b4cb6a-47c9-459b-8694-aee9158439dd
+rankdef\b
+
+# ╔═╡ 4c836857-08fc-411a-8b65-6340c6e94c3b
+md"""
+#### Sistemas indeterminados
+cuando A es corta (número de columnas mayor al número de renglones), tenemos un sistema indeterminado
+
+En este caso \ regresa la solución con la norma mínima
+"""
+
+# ╔═╡ 0784963e-8842-43f6-af98-781aa7e214b6
+Ashort = rand(2, 3)
+display(Ashort)
+Ashort\b[1:2]
+
+# ╔═╡ 86dc3af8-2f80-48a5-b0d3-caeddc5ae8a8
+md"""
+### Ejercicios
+
+
+
+```
+A = [
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ 1  2  3  4  5  6  7  8  9  10
+ ]
+```
+
+Quieres obtener
+
+```
+A = [
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ 7  8  9  10  1  2  3  4  5  6
+ ]
+```
+"""
+
+# ╔═╡ f86a1d32-1e1d-461e-ad40-f5b906b04cf9
+
+
+# ╔═╡ 22e5c662-6bf6-48d4-b7f9-93d8ac33ffdd
+md"""
+10.2 Toma el producto de un vector `v` con sí mismo.
+"""
+
+# ╔═╡ 403752d3-4a6b-41bf-b4ed-fd6fe7b9ee95
+
+
+# ╔═╡ 6b98b27f-f671-4c5c-af5e-6d290f0d158b
+md"""
+10.3 Toma el producto de un vector `v` con sí mismo.
+"""
+
+# ╔═╡ fd670b40-f44e-440e-90b0-b27522c7adbd
+
+
+# ╔═╡ Cell order:
+# ╟─3e849bdf-f13a-4ea0-aa54-b6ae89894565
+# ╟─a880f5b4-1f0f-4569-a59c-0e87d21cd203
+# ╠═05eff53f-64c5-4833-9eff-11c7d09b9684
+# ╟─16ca2d04-2f46-4de7-9481-daebf5112c2f
+# ╠═018e028c-43ff-4dbe-bc83-e5f0982d6bb6
+# ╟─5cc332db-a229-4182-b860-4d276e3042a9
+# ╠═383658c8-9d47-4a1e-ba63-66fa6e7f3311
+# ╟─e2cc7ff7-781c-4102-892c-da24291f0388
+# ╠═5c3d3b48-6b7c-4a3b-a9b6-d83f7bc03168
+# ╟─88f5c70e-b5b1-4cf0-8f50-d1241f0a769b
+# ╠═0691212e-d372-43be-b66e-61f842df09eb
+# ╟─1445f674-cfa2-44ab-920f-fe4d85d00c2e
+# ╠═c42fc4ae-bf1d-4eb7-9863-a498fb9116b8
+# ╟─462e5a23-f323-4158-bf27-cf36bbc5cec5
+# ╠═8c87b3e1-b737-4179-9955-defcf0905b1b
+# ╟─7dea4ca8-27e0-429e-bbf3-dccf2ca67df3
+# ╠═962df670-f9d1-441d-bf86-f4619f29ab4f
+# ╠═92b4cb6a-47c9-459b-8694-aee9158439dd
+# ╟─4c836857-08fc-411a-8b65-6340c6e94c3b
+# ╠═0784963e-8842-43f6-af98-781aa7e214b6
+# ╟─86dc3af8-2f80-48a5-b0d3-caeddc5ae8a8
+# ╠═f86a1d32-1e1d-461e-ad40-f5b906b04cf9
+# ╟─22e5c662-6bf6-48d4-b7f9-93d8ac33ffdd
+# ╠═403752d3-4a6b-41bf-b4ed-fd6fe7b9ee95
+# ╟─6b98b27f-f671-4c5c-af5e-6d290f0d158b
+# ╠═fd670b40-f44e-440e-90b0-b27522c7adbd
